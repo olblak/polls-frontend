@@ -63,7 +63,11 @@ export default {
   methods: {
     participate: function () {
       if (this.isPollProvided && this.isTokenProvided && this.isEmailProvided) {
-        axios.get(`/api/participate?poll=${this.poll}&token=${this.token}&email=${this.email}`)
+        var poll = encodeURIComponent(this.poll)
+        var token = encodeURIComponent(this.token)
+        var email = encodeURIComponent(this.email)
+
+        axios.get(`/api/participate?poll=${poll}&token=${token}&email=${email}`)
           .then(response => {
             this.confirmed = (response.data.confirmed === 'true')
             this.ready = true
